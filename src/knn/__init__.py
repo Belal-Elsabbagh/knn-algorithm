@@ -1,21 +1,24 @@
 from collections import Counter
 import numpy as np
+import pandas as pd
 
 
 class KNN:
-    dataset: dict[int:list] = None
+    dataset: pd.DataFrame = None
     distance_function = None
     k = 1
 
-    def __init__(self, k, dataset, distance_function):
+    def __init__(self, k, dataset, label, distance_function):
         self.k = k
         self.dataset = dataset
+        self.label = label
         self.distance_function = distance_function
 
     def __calculate_distances_from_point(self, _object):
         distances = []
-        for group, features in self.dataset.items():
-            distances += [(self.distance_function(point, _object), group) for point in features]
+        for group, df in self.dataset.groupby(self.label):
+            for index, row in df.iterrows():
+                distances.append((self.distance_function(row, _object), group))
         return distances
 
     def __get_knn_labels(self, _object):

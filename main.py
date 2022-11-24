@@ -64,5 +64,16 @@ def iris_test():
     print(KNN(k, data, euclidean).classify(p))
 
 
+def lab_test():
+    df = pd.read_csv('data/diabetes.csv')
+    species = df.groupby('Outcome')
+    data = {key: [j for i, j in group.to_dict().items()] for key, group in species}
+    k = 4
+    model = KNN(k, df, 'Outcome', euclidean)
+    p = (1, 89, 66, 23, 94, 28.1, 0.167, 21)
+    res = model.classify(p)
+    print(res)
+
+
 if __name__ == '__main__':
-    iris_test()
+    lab_test()
