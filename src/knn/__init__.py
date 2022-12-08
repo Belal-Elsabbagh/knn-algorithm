@@ -16,9 +16,10 @@ class KNN:
 
     def __calculate_distances_from_point(self, _object):
         distances = []
+        p = (_object.tolist())[:-1]
         for group, df in self.dataset.groupby(self.label):
             for index, row in df.iterrows():
-                distances.append((self.distance_function(row, _object), group))
+                distances.append((self.distance_function((row.tolist())[:-1], p), group))
         return distances
 
     def __get_knn_labels(self, _object):

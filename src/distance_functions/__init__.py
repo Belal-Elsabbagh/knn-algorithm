@@ -2,7 +2,7 @@ import math
 
 
 def euclidean(_a: list, _b: list):
-    return math.sqrt(sum([(i - j) ** 2 for i, j in zip(_a, _b)]))
+    return math.dist(_a, _b)
 
 
 def manhattan(_a: list, _b: list):
